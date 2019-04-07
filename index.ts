@@ -1,5 +1,5 @@
 import { getParts, getReducedForm } from './src/reduction'
-import { solveZeroDegreeEquation } from './src/solve'
+import { solveZeroDegreeEquation, solvePolynomialEquation } from './src/solve'
 import { ITerm } from './src/types'
 
 const readArguments = () => {
@@ -24,10 +24,11 @@ const solve = () => {
     const equation = readArguments()
     if (!equation)
         return
-    const solution = {
+    let solution = {
         equation,
         solutions: [],
         reducedForm: '',
+        msg: '',
         polynomialDegree: 0,
     }
     let expression = solution.equation.replace(/ /g, '').toLowerCase()
@@ -38,7 +39,10 @@ const solve = () => {
         console.warn('I can\'nt solve polynomial equations with degree higher than 3')
     } else if (solution.polynomialDegree == 0) {
         solveZeroDegreeEquation(terms)
+    } else {
+        solution = Object.assign(solution, solvePolynomialEquation(terms))
     }
+    console.log(solution)
 }
 
 solve()

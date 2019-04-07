@@ -11,3 +11,10 @@ export interface IParts {
     first: ITerm[],
     second: ITerm[]
 }
+
+export interface IDiscriminant {
+    a: ITerm
+    b: ITerm
+    c: ITerm
+    disc: number
+}

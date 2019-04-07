@@ -26,6 +26,7 @@ var solve = function () {
         equation: equation,
         solutions: [],
         reducedForm: '',
+        msg: '',
         polynomialDegree: 0
     };
     var expression = solution.equation.replace(/ /g, '').toLowerCase();
@@ -38,5 +39,9 @@ var solve = function () {
     else if (solution.polynomialDegree == 0) {
         solve_1.solveZeroDegreeEquation(terms);
     }
+    else {
+        solution = Object.assign(solution, solve_1.solvePolynomialEquation(terms));
+    }
+    console.log(solution);
 };
 solve();
