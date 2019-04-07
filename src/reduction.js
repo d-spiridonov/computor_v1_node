@@ -7,6 +7,7 @@ exports.__esModule = true;
  */
 var convertToTerms = function (expression, parts, part) {
     if (part === void 0) { part = 'first'; }
+    console.log('convertToTerms');
     var res = {
         num: 0,
         power: 0,

@@ -2,21 +2,24 @@ import { reduceEquation } from './src/reduction'
 
 const readArguments = () => {
     const arg = process.argv
-    console.log(process.argv.length)
     if (process.argv.length < 3) {
-        console.log('Please specify file path')
-        process.exit()
+        return null
     }
-    return arg[3]
+    return arg[2]
 }
 
 const solve = () => {
+    const equation = readArguments()
+    console.log(equation)
+    if (!equation)
+        return
     const solution = {
-        equation: readArguments(),
+        equation,
         solutions: [],
         polynomialDegree: ''
     }
-    let expression = solution.equation.replace(' ', '').toLowerCase()
+    let expression = solution.equation.replace(/ /g, '').toLowerCase()
+    console.log(expression)
     const reducedExpression = reduceEquation(expression)
     console.log(reducedExpression)
 }
