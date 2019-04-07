@@ -11,5 +11,6 @@ const solve = () => {
         solutions: [],
         polynomialDegree: ''
     }
-    let expression = cleanExpression(solution.equation)
+    let expression = solution.equation.replace(' ', '').toLowerCase()
+    expression = simplify(expression)
 }
