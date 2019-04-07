@@ -1,9 +1,11 @@
 "use strict";
 exports.__esModule = true;
 var reduction_1 = require("./src/reduction");
+var solve_1 = require("./src/solve");
 var readArguments = function () {
     var arg = process.argv;
     if (process.argv.length < 3) {
+        console.warn('Please provide arguments');
         return null;
     }
     return arg[2];
@@ -30,6 +32,11 @@ var solve = function () {
     var terms = reduction_1.getParts(expression);
     solution.reducedForm = reduction_1.getReducedForm(terms);
     solution.polynomialDegree = getPolynomialDegree(terms);
-    console.log(solution.polynomialDegree);
+    if (solution.polynomialDegree > 2) {
+        console.warn('I can\'nt solve polynomial equations with degree higher than 3');
+    }
+    else if (solution.polynomialDegree == 0) {
+        solve_1.solveZeroDegreeEquation(terms);
+    }
 };
 solve();
