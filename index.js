@@ -8,21 +8,28 @@ var readArguments = function () {
     }
     return arg[2];
 };
+var getPolynomialDegree = function (terms) {
+    var power = terms[0].power;
+    terms.forEach(function (term) {
+        if (power < term.power)
+            power = term.power;
+    });
+    return power;
+};
 var solve = function () {
     var equation = readArguments();
-    console.log(equation);
     if (!equation)
         return;
     var solution = {
         equation: equation,
         solutions: [],
         reducedForm: '',
-        polynomialDegree: ''
+        polynomialDegree: 0
     };
     var expression = solution.equation.replace(/ /g, '').toLowerCase();
-    var parts = reduction_1.getParts(expression);
-    console.log(parts);
-    solution.reducedForm = reduction_1.getReducedForm(parts);
-    console.log(solution.reducedForm);
+    var terms = reduction_1.getParts(expression);
+    solution.reducedForm = reduction_1.getReducedForm(terms);
+    solution.polynomialDegree = getPolynomialDegree(terms);
+    console.log(solution.polynomialDegree);
 };
 solve();

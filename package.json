@@ -9,6 +9,7 @@
     "start": "npm run build && node dist/index.js"
   },
   "keywords": [],
+  "types": "./main.d.ts",
   "author": "",
   "license": "MIT",
   "devDependencies": {

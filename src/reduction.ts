@@ -1,16 +1,4 @@
-interface ITerm {
-    num: number
-    power: number
-    sign: string
-}
-
-type PartsType = 'first' | 'second'
-
-type IPart = {[P in PartsType]?: ITerm }
-interface IParts {
-    first: ITerm[],
-    second: ITerm[]
-}
+import { ITerm, PartsType, IParts } from './types'
 
 /**
  * split expression into separate terms
