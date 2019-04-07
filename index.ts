@@ -1,4 +1,4 @@
-import { reduceEquation } from './src/reduction'
+import { getParts, getReducedForm } from './src/reduction'
 
 const readArguments = () => {
     const arg = process.argv
@@ -16,12 +16,14 @@ const solve = () => {
     const solution = {
         equation,
         solutions: [],
+        reducedForm: '',
         polynomialDegree: ''
     }
     let expression = solution.equation.replace(/ /g, '').toLowerCase()
-    console.log(expression)
-    const reducedExpression = reduceEquation(expression)
-    console.log(reducedExpression)
+    const parts = getParts(expression)
+    console.log(parts)
+    solution.reducedForm = getReducedForm(parts)
+    console.log(solution.reducedForm)
 }
 
 solve()

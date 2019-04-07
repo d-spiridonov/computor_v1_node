@@ -83,9 +83,26 @@ const simplify = (parts: IParts) => {
     return parts.first
 } 
 
-// const convertToTerms(exp: string, parts)
+/**
+ * get reduced form of the expression
+ * @param expression 
+ */
 
-export const reduceEquation = (expression: string): any => { // simplify the equation and return parts
+export const getReducedForm = (expression: ITerm[]): string => {
+    let reducedForm = ''
+    expression.forEach(part => {
+        const sign = part.sign == '' ? '' : '-'
+        reducedForm = reducedForm + sign + part.num.toFixed(0) + ' * X^' + part.power.toString()
+    })
+    return reducedForm + ' = 0'
+}
+
+
+/**
+ * get an array of equation parts
+ * @param expression 
+ */
+export const getParts = (expression: string): any => { // simplify the equation and return parts
     let parts: IParts = {
         first: [],
         second: []

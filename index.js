@@ -16,11 +16,13 @@ var solve = function () {
     var solution = {
         equation: equation,
         solutions: [],
+        reducedForm: '',
         polynomialDegree: ''
     };
     var expression = solution.equation.replace(/ /g, '').toLowerCase();
-    console.log(expression);
-    var reducedExpression = reduction_1.reduceEquation(expression);
-    console.log(reducedExpression);
+    var parts = reduction_1.getParts(expression);
+    console.log(parts);
+    solution.reducedForm = reduction_1.getReducedForm(parts);
+    console.log(solution.reducedForm);
 };
 solve();

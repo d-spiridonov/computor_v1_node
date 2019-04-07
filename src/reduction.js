@@ -7,7 +7,6 @@ exports.__esModule = true;
  */
 var convertToTerms = function (expression, parts, part) {
     if (part === void 0) { part = 'first'; }
-    console.log('convertToTerms');
     var res = {
         num: 0,
         power: 0,
@@ -69,8 +68,23 @@ var simplify = function (parts) {
     }
     return parts.first;
 };
-// const convertToTerms(exp: string, parts)
-exports.reduceEquation = function (expression) {
+/**
+ * get reduced form of the expression
+ * @param expression
+ */
+exports.getReducedForm = function (expression) {
+    var reducedForm = '';
+    expression.forEach(function (part) {
+        var sign = part.sign == '' ? '' : '-';
+        reducedForm = reducedForm + sign + part.num.toFixed(0) + ' * X^' + part.power.toString();
+    });
+    return reducedForm + ' = 0';
+};
+/**
+ * get an array of equation parts
+ * @param expression
+ */
+exports.getParts = function (expression) {
     var parts = {
         first: [],
         second: []
