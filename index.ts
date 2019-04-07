@@ -2,8 +2,11 @@ import { reduceEquation } from './src/reduction'
 
 const readArguments = () => {
     const arg = process.argv
-    if (process.argv.length < 3)
+    console.log(process.argv.length)
+    if (process.argv.length < 3) {
         console.log('Please specify file path')
+        process.exit()
+    }
     return arg[3]
 }
 

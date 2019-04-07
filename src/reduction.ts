@@ -50,8 +50,18 @@ const convertToTerms = (expression: string, parts: IParts, part: PartsType = 'fi
     return parts
 }
 
+const checkIfAddedIncludesPart = (added: ITerm[], part: ITerm) => {
+    let wasAdded = false
+    added.forEach(addedPart => {
+        if (JSON.stringify(addedPart) === JSON.stringify(part)) {
+            wasAdded = true
+        }
+    })
+    return wasAdded
+}
+
 const simplify = (parts: IParts) => {
-    const added = []
+    const added: ITerm[] = []
 
     for (let i = 0; i < parts.second.length; i++) {
         for (let i2 = 0; i2 < parts.first.length; i2++) {
@@ -65,7 +75,7 @@ const simplify = (parts: IParts) => {
         }
     }
     for (let i = 0; i < parts.second.length; i++) {
-        if (!added.includes(parts.second[i])) {
+        if (!checkIfAddedIncludesPart(added, parts.second[i])) {
             parts.second[i].sign = parts.second[i].sign == '' ? '-' : ''
             parts.first.push(parts.second[i])
         }
@@ -75,7 +85,7 @@ const simplify = (parts: IParts) => {
 
 // const convertToTerms(exp: string, parts)
 
-export const reduceEquation = (expression: string) => { // simplify the equation and return parts
+export const reduceEquation = (expression: string): any => { // simplify the equation and return parts
     let parts: IParts = {
         first: [],
         second: []
