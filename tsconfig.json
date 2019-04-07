@@ -63,5 +63,6 @@
     "resolveJsonModule": true,                 /* Include modules imported with '.json' extension */
     "forceConsistentCasingInFileNames": true,
   },
-  "exclude": ["node_modules", "dist"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }

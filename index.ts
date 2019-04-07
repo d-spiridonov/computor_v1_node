@@ -1,3 +1,5 @@
+import { reduceEquation } from './src/reduction'
+
 const readArguments = () => {
     const arg = process.argv
     if (process.argv.length < 3)
@@ -12,5 +14,8 @@ const solve = () => {
         polynomialDegree: ''
     }
     let expression = solution.equation.replace(' ', '').toLowerCase()
-    expression = simplify(expression)
+    const reducedExpression = reduceEquation(expression)
+    console.log(reducedExpression)
 }
+
+solve()
