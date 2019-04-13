@@ -48,10 +48,10 @@ const countRoot = (disc: number) => (disc ** 0.5).toFixed(6)
  * @param sign 
  */
 const findRootsForQuadraticEquation = (discriminant: IDiscriminant, sign: string = '+') => {
-    const twoA = eval(discriminant.a.sign + discriminant.a.num.toString) * 2
+    const twoA = eval(discriminant.a.sign + discriminant.a.num.toString()) * 2
     discriminant.b.sign = discriminant.b.sign == '' ? '-' : ''
     const discRoot = countRoot(discriminant.disc)
-    const resUp = eval('(' + discriminant.b.sign + discriminant.b.num.toString() + sign + discRoot.toString + ')')
+    const resUp = eval('(' + discriminant.b.sign + discriminant.b.num.toString() + sign + discRoot.toString() + ')')
     const res = resUp / twoA
     return parseFloat(res.toFixed(6).toString())
 }
