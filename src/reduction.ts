@@ -50,12 +50,11 @@ const checkIfAddedIncludesPart = (added: ITerm[], part: ITerm) => {
 
 const simplify = (parts: IParts) => {
     const added: ITerm[] = []
-
     for (let i = 0; i < parts.second.length; i++) {
         for (let i2 = 0; i2 < parts.first.length; i2++) {
             if (parts.first[i2].power == parts.second[i].power) {
                 parts.second[i].sign = parts.second[i].sign == '-' ? '' : '-'
-                if (!parts.first[i2].num || !parts.second[i].num) return
+                if (parts.first[i2].num === undefined || !parts.second[i].num === undefined) return
                 parts.first[i2].num = eval(parts.first[i2].num + '+' + parts.second[i].sign + parts.second[i].num.toString())
                 added.push(parts.second[i])
                 break
