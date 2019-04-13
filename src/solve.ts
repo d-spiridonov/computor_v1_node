@@ -39,7 +39,7 @@ const findDiscriminant = (terms: ITerm[]): IDiscriminant|undefined => {
     }
 }
 
-const countRoot = (disc: number) => (disc ** 0.5).toFixed(6)
+const countRoot = (disc: number) => parseFloat((disc ** 0.5).toFixed(6))
 
 /**
  * find roots for solving quadratic equation
@@ -54,6 +54,16 @@ const findRootsForQuadraticEquation = (discriminant: IDiscriminant, sign: string
     const resUp = eval('(' + discriminant.b.sign + discriminant.b.num.toString() + sign + discRoot.toString() + ')')
     const res = resUp / twoA
     return parseFloat(res.toFixed(6).toString())
+}
+
+const findRootsForQuadraticEquationComplex = (discriminant: IDiscriminant, sign: string = '+') => {
+    const twoA = eval(discriminant.a.sign + discriminant.a.num.toString()) * 2
+    discriminant.b.sign = discriminant.b.sign == '' ? '-' : ''
+    const discRoot = countRoot(discriminant.disc * -1)
+    const resUp = eval(discriminant.b.sign + discriminant.b.num.toString())
+    const first = resUp / twoA
+    const second = discRoot / twoA
+    return first + ' ' + sign + 'i * ' + second
 }
 
 export const solvePolynomialEquation = (terms: ITerm[]) => {
@@ -77,10 +87,10 @@ export const solvePolynomialEquation = (terms: ITerm[]) => {
             msg: 'Discriminant equals zero, the one solution is:',
             solutions
         }
-    } else { // if disc < 0, there are no solutiosn
+    } else { // if disc < 0, there are no solutions
         const solutions = [
-            findRootsForQuadraticEquation(discriminant),
-            findRootsForQuadraticEquation(discriminant, '-')
+            findRootsForQuadraticEquationComplex(discriminant),
+            findRootsForQuadraticEquationComplex(discriminant, '-')
         ]
         return {
             msg: 'Discriminant is strictly negative, there are two complex solutions found.',
