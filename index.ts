@@ -36,7 +36,7 @@ const solve = () => {
     solution.reducedForm = getReducedForm(terms)
     solution.polynomialDegree = getPolynomialDegree(terms)
     if (solution.polynomialDegree > 2) {
-        console.warn('I can\'nt solve polynomial equations with degree higher than 3')
+        console.warn('I can\'t solve polynomial equations with degree higher than 2')
     } else if (solution.polynomialDegree == 0) {
         solveZeroDegreeEquation(terms)
     } else {
