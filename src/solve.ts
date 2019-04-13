@@ -16,10 +16,10 @@ export const solveZeroDegreeEquation = (terms: ITerm[]) => {
  * find the discriminant using D = b2 - 4ac formula
  * @param terms 
  */
-const findDiscriminant = (terms: ITerm[]): IDiscriminant|undefined => {
-    let a: ITerm|undefined
-    let b: ITerm|undefined
-    let c: ITerm|undefined
+const findDiscriminant = (terms: ITerm[]): IDiscriminant | undefined => {
+    let a: ITerm | undefined
+    let b: ITerm | undefined
+    let c: ITerm | undefined
     terms.forEach(term => {
         if (term.power === 0) {
             c = term
@@ -66,35 +66,73 @@ const findRootsForQuadraticEquationComplex = (discriminant: IDiscriminant, sign:
     return first + ' ' + sign + ' i * ' + second
 }
 
-export const solvePolynomialEquation = (terms: ITerm[]) => {
-    const discriminant = findDiscriminant(terms)
-    if (!discriminant) return
+const solveSimpleEquation = (terms: ITerm[]) => {
+    let a: ITerm | undefined
+    let b: ITerm | undefined
+    let c: ITerm | undefined
+    if (terms[0].power == 1) {
+        a = terms[0]
+        b = terms[1]
+    } else {
+        b = terms[0]
+        a = terms[1]
+    }
+    b.sign = b.sign == '' ? '-' : ''
+    return eval(b.sign + b.num.toString() + '/' + a.sign + a.num.toString())
+}
 
-    // if discriminant > 0, there are 2 solutions
-    if (discriminant.disc > 0) {
-        const solutions = [
-            // create a copy fo the object
-            findRootsForQuadraticEquation(JSON.parse(JSON.stringify(discriminant)), '-'),
-            findRootsForQuadraticEquation(JSON.parse(JSON.stringify(discriminant))),
-        ]
-        return {
-            msg: 'Discriminant is strictly positive, the two solutions are:',
-            solutions
+/**
+ * remove zero terms, as they are not needed
+ * @param terms 
+ */
+const removeZeroTerm = (terms: ITerm[]) => {
+    terms.forEach((term, i) => {
+        if (term.num == 0) {
+            terms.splice(i, 1)
         }
-    } else if (discriminant.disc == 0) { // there is only 1 solution
-        const solutions = [findRootsForQuadraticEquation(discriminant)]
+    })
+    return terms
+}
+
+export const solvePolynomialEquation = (terms: ITerm[]) => {
+    terms = removeZeroTerm(terms)
+    if (terms.length < 3) {
         return {
-            msg: 'Discriminant equals zero, the one solution is:',
-            solutions
+            msg: 'The solution is:',
+            solutions: [
+                solveSimpleEquation(terms)
+            ]
         }
-    } else { // if disc < 0, there are no solutions
-        const solutions = [
-            findRootsForQuadraticEquationComplex(discriminant),
-            findRootsForQuadraticEquationComplex(discriminant, '-')
-        ]
-        return {
-            msg: 'Discriminant is strictly negative, there are two complex solutions found.',
-            solutions
+    } else {
+        const discriminant = findDiscriminant(terms)
+        if (!discriminant) return
+
+        // if discriminant > 0, there are 2 solutions
+        if (discriminant.disc > 0) {
+            const solutions = [
+                // create a copy fo the object
+                findRootsForQuadraticEquation(JSON.parse(JSON.stringify(discriminant)), '-'),
+                findRootsForQuadraticEquation(JSON.parse(JSON.stringify(discriminant))),
+            ]
+            return {
+                msg: 'Discriminant is strictly positive, the two solutions are:',
+                solutions
+            }
+        } else if (discriminant.disc == 0) { // there is only 1 solution
+            const solutions = [findRootsForQuadraticEquation(discriminant)]
+            return {
+                msg: 'Discriminant equals zero, the one solution is:',
+                solutions
+            }
+        } else { // if disc < 0, there are no solutions
+            const solutions = [
+                findRootsForQuadraticEquationComplex(discriminant),
+                findRootsForQuadraticEquationComplex(discriminant, '-')
+            ]
+            return {
+                msg: 'Discriminant is strictly negative, there are two complex solutions found.',
+                solutions
+            }
         }
     }
 }
