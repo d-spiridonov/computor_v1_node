@@ -63,8 +63,9 @@ export const solvePolynomialEquation = (terms: ITerm[]) => {
     // if discriminant > 0, there are 2 solutions
     if (discriminant.disc > 0) {
         const solutions = [
-            findRootsForQuadraticEquation(discriminant, '-'),
-            findRootsForQuadraticEquation(discriminant)
+            // create a copy fo the object
+            findRootsForQuadraticEquation(JSON.parse(JSON.stringify(discriminant)), '-'),
+            findRootsForQuadraticEquation(JSON.parse(JSON.stringify(discriminant))),
         ]
         return {
             msg: 'Discriminant is strictly positive, the two solutions are:',
@@ -78,8 +79,8 @@ export const solvePolynomialEquation = (terms: ITerm[]) => {
         }
     } else { // if disc < 0, there are no solutiosn
         const solutions = [
-            findRootsForQuadraticEquation(discriminant, '-'),
-            findRootsForQuadraticEquation(discriminant)
+            findRootsForQuadraticEquation(discriminant),
+            findRootsForQuadraticEquation(discriminant, '-')
         ]
         return {
             msg: 'Discriminant is strictly negative, there are two complex solutions found.',

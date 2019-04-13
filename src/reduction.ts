@@ -16,7 +16,7 @@ const convertToTerms = (expression: string, parts: IParts, part: PartsType = 'fi
         res.sign = '-'
         expression = expression.substring(1)
     } else if (expression[0] === '+') {
-        res.sign = '+'
+        res.sign = ''
         expression = expression.substring(1)
     }
     res.num = parseFloat(expression.substring(0, expression.indexOf('*')))
