@@ -30,7 +30,7 @@ const findDiscriminant = (terms: ITerm[]): IDiscriminant | undefined => {
         }
     })
     if (!a || !b || !c) return
-    // find out b2
+    // find b2
     const b2 = eval(b.sign + b.num.toString() + '*' + b.sign + b.num.toString())
     // b2 - 4ac
     const discriminant = eval(b2.toString() + '-4' + '*' + a.sign + a.num.toString() + '*' + c.sign + c.num.toString())
@@ -69,7 +69,6 @@ const findRootsForQuadraticEquationComplex = (discriminant: IDiscriminant, sign:
 const solveSimpleEquation = (terms: ITerm[]) => {
     let a: ITerm | undefined
     let b: ITerm | undefined
-    let c: ITerm | undefined
     if (terms[0].power == 1) {
         a = terms[0]
         b = terms[1]

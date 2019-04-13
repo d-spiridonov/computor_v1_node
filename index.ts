@@ -20,10 +20,19 @@ const getPolynomialDegree = (terms: ITerm[]): number => {
     return power
 }
 
+const isExpressionValid = (terms: ITerm[]) => {
+    let isExpressionValid = true
+    isExpressionValid = !terms.find(term => 
+        isNaN(term.num) || isNaN(term.power))
+    return isExpressionValid
+}
+
 const solve = () => {
     const equation = readArguments()
-    if (!equation)
+    if (!equation) {
+        console.warn('Please provide a valid equation')
         return
+    }
     let solution = {
         equation,
         solutions: [],
@@ -33,6 +42,11 @@ const solve = () => {
     }
     let expression = solution.equation.replace(/ /g, '').toLowerCase()
     const terms = getParts(expression)
+
+    if (!isExpressionValid(terms)) {
+        console.warn('Invalid expression. I can\'t solve')
+        return
+    }
     solution.reducedForm = getReducedForm(terms)
     solution.polynomialDegree = getPolynomialDegree(terms)
     if (solution.polynomialDegree > 2) {
