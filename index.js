@@ -34,7 +34,7 @@ var solve = function () {
     solution.reducedForm = reduction_1.getReducedForm(terms);
     solution.polynomialDegree = getPolynomialDegree(terms);
     if (solution.polynomialDegree > 2) {
-        console.warn('I can\'nt solve polynomial equations with degree higher than 3');
+        console.warn('I can\'t solve polynomial equations with degree higher than 2');
     }
     else if (solution.polynomialDegree == 0) {
         solve_1.solveZeroDegreeEquation(terms);

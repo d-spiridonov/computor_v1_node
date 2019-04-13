@@ -17,7 +17,7 @@ var convertToTerms = function (expression, parts, part) {
         expression = expression.substring(1);
     }
     else if (expression[0] === '+') {
-        res.sign = '+';
+        res.sign = '';
         expression = expression.substring(1);
     }
     res.num = parseFloat(expression.substring(0, expression.indexOf('*')));
@@ -52,7 +52,7 @@ var simplify = function (parts) {
         for (var i2 = 0; i2 < parts.first.length; i2++) {
             if (parts.first[i2].power == parts.second[i].power) {
                 parts.second[i].sign = parts.second[i].sign == '-' ? '' : '-';
-                if (!parts.first[i2].num || !parts.second[i].num)
+                if (parts.first[i2].num === undefined || !parts.second[i].num === undefined)
                     return;
                 parts.first[i2].num = eval(parts.first[i2].num + '+' + parts.second[i].sign + parts.second[i].num.toString());
                 added.push(parts.second[i]);
@@ -74,11 +74,17 @@ var simplify = function (parts) {
  */
 exports.getReducedForm = function (expression) {
     var reducedForm = '';
+    console.log(expression);
     expression.forEach(function (part) {
-        var sign = part.sign == '' ? '' : '-';
-        reducedForm = reducedForm + sign + part.num.toFixed(0) + ' * X^' + part.power.toString();
+        var sign = part.sign == '' ? '+' : '-';
+        if (reducedForm.length > 0)
+            reducedForm = reducedForm + sign + ' ' + part.num.toFixed(0) + ' * X^' + part.power.toString() + ' ';
+        else {
+            var minusSign = sign == '+' ? '' : '-';
+            reducedForm = minusSign + part.num.toFixed(0) + ' * X^' + part.power.toString() + ' ';
+        }
     });
-    return reducedForm + ' = 0';
+    return reducedForm + '= 0';
 };
 /**
  * get an array of equation parts

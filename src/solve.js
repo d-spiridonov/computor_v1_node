@@ -41,7 +41,7 @@ var findDiscriminant = function (terms) {
         a: a, b: b, c: c, disc: discriminant
     };
 };
-var countRoot = function (disc) { return (Math.pow(disc, 0.5)).toFixed(6); };
+var countRoot = function (disc) { return parseFloat((Math.pow(disc, 0.5)).toFixed(6)); };
 /**
  * find roots for solving quadratic equation
  * x = (-b sign count_root(D)) / (2a)
@@ -50,12 +50,22 @@ var countRoot = function (disc) { return (Math.pow(disc, 0.5)).toFixed(6); };
  */
 var findRootsForQuadraticEquation = function (discriminant, sign) {
     if (sign === void 0) { sign = '+'; }
-    var twoA = eval(discriminant.a.sign + discriminant.a.num.toString) * 2;
+    var twoA = eval(discriminant.a.sign + discriminant.a.num.toString()) * 2;
     discriminant.b.sign = discriminant.b.sign == '' ? '-' : '';
     var discRoot = countRoot(discriminant.disc);
-    var resUp = eval('(' + discriminant.b.sign + discriminant.b.num.toString() + sign + discRoot.toString + ')');
+    var resUp = eval('(' + discriminant.b.sign + discriminant.b.num.toString() + sign + discRoot.toString() + ')');
     var res = resUp / twoA;
     return parseFloat(res.toFixed(6).toString());
+};
+var findRootsForQuadraticEquationComplex = function (discriminant, sign) {
+    if (sign === void 0) { sign = '+'; }
+    var twoA = eval(discriminant.a.sign + discriminant.a.num.toString()) * 2;
+    discriminant.b.sign = discriminant.b.sign == '' ? '-' : '';
+    var discRoot = countRoot(discriminant.disc * -1);
+    var resUp = eval(discriminant.b.sign + discriminant.b.num.toString());
+    var first = resUp / twoA;
+    var second = discRoot / twoA;
+    return first + ' ' + sign + ' i * ' + second;
 };
 exports.solvePolynomialEquation = function (terms) {
     var discriminant = findDiscriminant(terms);
@@ -64,8 +74,9 @@ exports.solvePolynomialEquation = function (terms) {
     // if discriminant > 0, there are 2 solutions
     if (discriminant.disc > 0) {
         var solutions = [
-            findRootsForQuadraticEquation(discriminant, '-'),
-            findRootsForQuadraticEquation(discriminant)
+            // create a copy fo the object
+            findRootsForQuadraticEquation(JSON.parse(JSON.stringify(discriminant)), '-'),
+            findRootsForQuadraticEquation(JSON.parse(JSON.stringify(discriminant))),
         ];
         return {
             msg: 'Discriminant is strictly positive, the two solutions are:',
@@ -79,10 +90,10 @@ exports.solvePolynomialEquation = function (terms) {
             solutions: solutions
         };
     }
-    else { // if disc < 0, there are no solutiosn
+    else { // if disc < 0, there are no solutions
         var solutions = [
-            findRootsForQuadraticEquation(discriminant, '-'),
-            findRootsForQuadraticEquation(discriminant)
+            findRootsForQuadraticEquationComplex(discriminant),
+            findRootsForQuadraticEquationComplex(discriminant, '-')
         ];
         return {
             msg: 'Discriminant is strictly negative, there are two complex solutions found.',

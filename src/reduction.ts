@@ -78,10 +78,15 @@ const simplify = (parts: IParts) => {
 export const getReducedForm = (expression: ITerm[]): string => {
     let reducedForm = ''
     expression.forEach(part => {
-        const sign = part.sign == '' ? '' : '-'
-        reducedForm = reducedForm + sign + part.num.toFixed(0) + ' * X^' + part.power.toString()
+        const sign = part.sign == '' ? '+' : '-'
+        if (reducedForm.length > 0)
+            reducedForm = reducedForm + sign + ' ' + part.num.toFixed(0) + ' * X^' + part.power.toString() + ' '
+        else {
+            const minusSign = sign == '+' ? '' : '-'
+            reducedForm = minusSign + part.num.toFixed(0) + ' * X^' + part.power.toString() + ' '
+        }
     })
-    return reducedForm + ' = 0'
+    return reducedForm + '= 0'
 }
 
 
