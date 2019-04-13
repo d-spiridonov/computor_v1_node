@@ -38,7 +38,7 @@ const solve = () => {
     if (solution.polynomialDegree > 2) {
         console.warn('I can\'t solve polynomial equations with degree higher than 2')
     } else if (solution.polynomialDegree == 0) {
-        solveZeroDegreeEquation(terms)
+        solution.solutions = solveZeroDegreeEquation(terms)
     } else {
         solution = Object.assign(solution, solvePolynomialEquation(terms))
     }

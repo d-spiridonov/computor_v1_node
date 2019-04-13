@@ -1,14 +1,14 @@
 import { ITerm, IDiscriminant } from "./types";
 
 export const solveZeroDegreeEquation = (terms: ITerm[]) => {
-    let sum = 0
+    let sum = ''
     terms.forEach(term => {
-        sum = eval(sum + term.sign + term.num)
+        sum = eval(sum + term.sign + term.num.toString())
     })
     if (parseFloat(sum.toString()) === 0) {
-        console.log('The solution is all real numbers')
+        return ['All real numbers']
     } else {
-        console.log('There are no solutions')
+        return ['There are no solutions']
     }
 }
 
