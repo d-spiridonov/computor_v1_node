@@ -63,7 +63,7 @@ const findRootsForQuadraticEquationComplex = (discriminant: IDiscriminant, sign:
     const resUp = eval(discriminant.b.sign + discriminant.b.num.toString())
     const first = resUp / twoA
     const second = discRoot / twoA
-    return first + ' ' + sign + 'i * ' + second
+    return first + ' ' + sign + ' i * ' + second
 }
 
 export const solvePolynomialEquation = (terms: ITerm[]) => {
