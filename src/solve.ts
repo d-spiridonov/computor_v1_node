@@ -6,7 +6,7 @@ export const solveZeroDegreeEquation = (terms: ITerm[]) => {
         sum = eval(sum + term.sign + term.num.toString())
     })
     if (parseFloat(sum.toString()) === 0) {
-        return ['All real numbers']
+        return ['All real numbers is a solution']
     } else {
         return ['There are no solutions']
     }
@@ -129,7 +129,7 @@ export const solvePolynomialEquation = (terms: ITerm[]) => {
                 findRootsForQuadraticEquationComplex(discriminant, '-')
             ]
             return {
-                msg: 'Discriminant is strictly negative, there are two complex solutions found.',
+                msg: 'Discriminant is strictly negative, there are two complex solutions found:',
                 solutions
             }
         }

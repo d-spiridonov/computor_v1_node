@@ -1,6 +1,6 @@
 import { getParts, getReducedForm } from './src/reduction'
 import { solveZeroDegreeEquation, solvePolynomialEquation } from './src/solve'
-import { ITerm } from './src/types'
+import { ITerm, ISolution } from './src/types'
 
 const readArguments = () => {
     const arg = process.argv
@@ -25,6 +25,24 @@ const isExpressionValid = (terms: ITerm[]) => {
     isExpressionValid = !terms.find(term => 
         isNaN(term.num) || isNaN(term.power))
     return isExpressionValid
+}
+
+const getSolutions = (solutions: string[]): string|null => {
+    if (!solutions.length) {
+        return null
+    } else if (solutions.length == 1) {
+        return solutions[0]
+    } else {
+        return `${solutions[0]}\n${solutions[1]}`
+    }
+}
+
+const printSolution = (solution: ISolution) => {
+    const message = `Reduced form: ${solution.reducedForm}
+Polynomial degree: ${solution.polynomialDegree}
+${solution.msg}
+${getSolutions(solution.solutions)}`
+    console.log(message)
 }
 
 const solve = () => {
@@ -56,7 +74,7 @@ const solve = () => {
     } else {
         solution = Object.assign(solution, solvePolynomialEquation(terms))
     }
-    console.log(solution)
+    printSolution(solution)
 }
 
 solve()

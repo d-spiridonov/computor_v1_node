@@ -18,3 +18,11 @@ export interface IDiscriminant {
     c: ITerm
     disc: number
 }
+
+export interface ISolution {
+    equation: string,
+    solutions: string[]
+    reducedForm: string
+    msg: string
+    polynomialDegree: number
+}
