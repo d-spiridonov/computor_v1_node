@@ -62,13 +62,13 @@ const solve = () => {
     const terms = getParts(expression)
 
     if (!isExpressionValid(terms)) {
-        console.warn('Invalid expression. I can\'t solve')
+        console.warn('Invalid expression. I can\'t solve.')
         return
     }
     solution.reducedForm = getReducedForm(terms)
     solution.polynomialDegree = getPolynomialDegree(terms)
     if (solution.polynomialDegree > 2) {
-        console.warn('I can\'t solve polynomial equations with degree higher than 2')
+        console.warn('I can\'t solve polynomial equations with degree higher than 2.')
     } else if (solution.polynomialDegree == 0) {
         solution.solutions = solveZeroDegreeEquation(terms)
     } else {
