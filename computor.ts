@@ -69,6 +69,7 @@ const solve = () => {
     solution.polynomialDegree = getPolynomialDegree(terms)
     if (solution.polynomialDegree > 2) {
         console.warn('I can\'t solve polynomial equations with degree higher than 2.')
+        return
     } else if (solution.polynomialDegree == 0) {
         solution.solutions = solveZeroDegreeEquation(terms)
     } else {

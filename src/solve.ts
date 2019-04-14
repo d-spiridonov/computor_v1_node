@@ -69,10 +69,15 @@ const findRootsForQuadraticEquationComplex = (discriminant: IDiscriminant, sign:
 const solveSimpleEquation = (terms: ITerm[]) => {
     let a: ITerm | undefined
     let b: ITerm | undefined
+
+    if (terms.length == 1) {
+        return 0
+    }
+    // we will be dividing b / a to find the X
     if (terms[0].power == 1) {
         a = terms[0]
         b = terms[1]
-    } else {
+    } else { // if second term has a power of 1, we will be deviding the term w/o power by the term with a term
         b = terms[0]
         a = terms[1]
     }
@@ -125,8 +130,8 @@ export const solvePolynomialEquation = (terms: ITerm[]) => {
             }
         } else { // if disc < 0, there are no solutions
             const solutions = [
-                findRootsForQuadraticEquationComplex(discriminant),
-                findRootsForQuadraticEquationComplex(discriminant, '-')
+                findRootsForQuadraticEquationComplex(JSON.parse(JSON.stringify(discriminant))),
+                findRootsForQuadraticEquationComplex(JSON.parse(JSON.stringify(discriminant)), '-')
             ]
             return {
                 msg: 'Discriminant is strictly negative, there are two complex solutions found:',

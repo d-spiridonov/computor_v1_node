@@ -48,6 +48,7 @@ const checkIfAddedIncludesPart = (added: ITerm[], part: ITerm) => {
     return wasAdded
 }
 
+// move the parts from right to left
 const simplify = (parts: IParts) => {
     const added: ITerm[] = []
     for (let i = 0; i < parts.second.length; i++) {
@@ -71,7 +72,7 @@ const simplify = (parts: IParts) => {
 } 
 
 /**
- * get reduced form of the expression
+ * get reduced form of the expression from terms
  * @param expression 
  */
 
